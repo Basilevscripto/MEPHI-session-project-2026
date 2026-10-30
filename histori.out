@@ -1,0 +1,53 @@
+    1  lsblk
+    2  fdisk /dev/sdb
+    3  mkfs.ext4 -L MEPHI_WEB /dev/sdb1
+    4  mkdir -p /mephi-web
+    5  blkid -o value -s LABEL /dev/sdb1
+    6  mcedit /etc/fstab 
+    7  mount -a
+    8  systemctl deamon-reload
+    9  stat /mephi-web
+   10  stat /mephi-web >> ~/stat.out
+   11  systemctl enable --now nginx
+   12  journalctl -u nginx -b
+   13  journalctl -u nginx -b > ~/journalctl.out
+   14  groupadd -g 4444 curators
+   15  useradd -u 5501 -G curators user1
+   16  useradd -u 5502 -G curators user2
+   17  useradd -u 5503 -G curators user3
+   18  useradd -u 5504 curator1
+   19  useradd -u 5505 curator2
+   20  mkdir -p /data/mephi-2026
+   21  chown root:curators /data/mephi-2026
+   22  chmod 2770 /data/mephi-2026
+   23  setcap cap_net_raw,cap_net_admin+eip /usr/sbin/tcpdump 
+   24  getcap /usr/sbin/tcpdump > ~/getcap.out
+   25  sudo -u user1 tcpdump -h
+   26  getenforce
+   27  getenforce > ~/getenfors.out
+   28  semanage fcontext -a -t httpd_sys_content_t "/mephi-web(/.*)?"
+   29  restorecon -Rv /mephi-web
+   30  usermod -s /usr/sbin/nologin curator1
+   31  usermod -s /usr/sbin/nologin curator2
+   32  mcedit /etc/security/pwquality.conf
+   33  change -M 90 user1
+   34  chage -M 90 user1
+   35  chage -M 90 user2
+   36  chage -M 90 user3
+   37  chage -M 90 curator1
+   38  chage -M 90 curator2
+   39  echo "Hellow from Student:M265238" > /mephi-web/index.html
+   40  curl http://localhost
+   41  mc
+   42  mount -a
+   43  stat /mephi-web
+   44  curl http://localhost
+   45  grep DocumentRoot /httpd/conf/httpd.conf
+   46  mc
+   47  systemctl status httpd
+   48  systemctl status nginx
+   49  mc
+   50  curl http://localhost
+   51  curl http://localhost > ~/curl.out
+   52  mc
+   53  history > ~/histori.out
